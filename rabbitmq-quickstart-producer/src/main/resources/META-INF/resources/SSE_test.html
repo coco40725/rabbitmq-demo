@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Number SSE</title>
+</head>
+<body>
+<div id="number">Pending</div>
+
+<script>
+    var source = new EventSource("/sse");
+    const number = document.getElementById("number");
+    source.onmessage = (event) => {
+        console.log(event.data);
+        var json = JSON.parse(event.data);
+        const numDiv = document.createElement("div");
+        numDiv.textContent = `${json.id}-${json.price}`
+        number.appendChild(numDiv);
+    };
+</script>
+</body>
+</html>

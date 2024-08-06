@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+</head>
+<body>
+<div class="container">
+
+    <h2>Order List</h2>
+    <div class="row">
+    <p class="col-md-12">The finished Order:</p>
+    <div id="content" class="col-md-12"></div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    var source = new EventSource("/y");
+    source.onmessage = function (event) {
+        console.log(event.data);
+        const data = JSON.parse(event.data)
+        const div = document.createElement("div")
+        div.innerText = `order: ${data.id} is Finished`
+        document.getElementById("content").appendChild(div)
+    };
+</script>
+</html>
